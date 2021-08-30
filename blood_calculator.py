@@ -4,12 +4,15 @@ def interface():
     while keep_running:
         print("Make a Choice")
         print("1 - HDL Analysis")
+        print("2 - LDL Analysis")
         print("9 - Quit")
         choice = int(input("Choose one: "))
         if choice == 9:
             keep_running = False
         elif choice == 1:
             HDL_Driver()
+        elif choice == 2:
+            LDL_Driver()
             
     print(choice)
     return choice
@@ -35,5 +38,30 @@ def hdl_output(text, value):
     print("Your HDL value is {}. It considered a {} value.".\
           format(value, text))
     return
+
+def LDL_Driver():
+    LDL_value = ldl_input()
+    message = ldl_analysis(LDL_value)
+    ldl_output(message, LDL_value)
+
+def ldl_input():
+    ldl_value = int(input("Enter LDL Value: "))
+    return ldl_value
+
+def ldl_analysis(ldl_value):
+    if ldl_value < 130:
+        return "Normal"
+    elif 130 <= ldl_value < 160:
+        return "Borderline High"
+    elif 160 <= ldl_value < 190:
+        return "High"
+    else:
+        return "Very High"
+    
+def ldl_output(text, value):
+    print("Your LDL value is {}. It considered a {} value.".\
+          format(value, text))
+    return
+
 
 interface()
