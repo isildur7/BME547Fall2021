@@ -17,6 +17,7 @@ def interface():
     print(choice)
     return choice
 
+########## HDL ############
 def HDL_Driver():
     HDL_value = hdl_input()
     message = hdl_analysis(HDL_value)
@@ -39,6 +40,7 @@ def hdl_output(text, value):
           format(value, text))
     return
 
+########## LDL ##############
 def LDL_Driver():
     LDL_value = ldl_input()
     message = ldl_analysis(LDL_value)
@@ -63,5 +65,5 @@ def ldl_output(text, value):
           format(value, text))
     return
 
-
+if __name__ == '__main__':
 interface()
