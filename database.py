@@ -1,5 +1,6 @@
 from blood_calculator import hdl_analysis
 
-output = hdl_analysis(393)
+val = 393
+output = hdl_analysis(val)
 
-print("the hdl of value of 393 was {}".format(output))
+print("the hdl of value of {} was {}".format(val, output))
