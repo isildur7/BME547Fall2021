@@ -13,19 +13,22 @@ def interface():
             HDL_Driver()
         elif choice == 2:
             LDL_Driver()
-            
+
     print(choice)
     return choice
 
-########## HDL ############
+
+# ######### HDL ############
 def HDL_Driver():
     HDL_value = hdl_input()
     message = hdl_analysis(HDL_value)
     hdl_output(message, HDL_value)
 
+
 def hdl_input():
     hdl_value = int(input("Enter HDL Value: "))
     return hdl_value
+
 
 def hdl_analysis(hdl_value):
     if hdl_value >= 60:
@@ -34,21 +37,25 @@ def hdl_analysis(hdl_value):
         return "Borderline Low"
     else:
         return "Low"
-    
+
+
 def hdl_output(text, value):
-    print("Your HDL value is {}. It considered a {} value.".\
+    print("Your HDL value is {}. It considered a {} value.".
           format(value, text))
     return
 
-########## LDL ##############
+
+# ######### LDL ###########
 def LDL_Driver():
     LDL_value = ldl_input()
     message = ldl_analysis(LDL_value)
     ldl_output(message, LDL_value)
 
+
 def ldl_input():
     ldl_value = int(input("Enter LDL Value: "))
     return ldl_value
+
 
 def ldl_analysis(ldl_value):
     if ldl_value < 130:
@@ -59,11 +66,13 @@ def ldl_analysis(ldl_value):
         return "High"
     else:
         return "Very High"
-    
+
+
 def ldl_output(text, value):
-    print("Your LDL value is {}. It considered a {} value.".\
+    print("Your LDL value is {}. It considered a {} value.".
           format(value, text))
     return
+
 
 if __name__ == '__main__':
     interface()
