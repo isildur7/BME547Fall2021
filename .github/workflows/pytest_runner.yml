@@ -16,4 +16,3 @@ jobs:
     - name: Test with pytest
       run:
         pytest -v
-        pycodestyle -v
