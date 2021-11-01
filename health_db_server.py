@@ -1,7 +1,22 @@
 from flask import Flask, request, jsonify
+from pymodm import connect, MongoModel, fields
+
 
 app = Flask(__name__)
-db = []
+
+
+def initialize_server():
+    print("connecting to MongoDB...")
+    connect("mongodb+srv://amey:fanyuan@cluster0.dovib.mongodb.net/"+
+            "HealthDatabase?retryWrites=true&w=majority")
+    print("Successful!")
+
+
+class Patients(MongoModel):
+    name = fields.CharField()
+    id = fields.IntegerField(primary_key=True)
+    bloodtype = fields.CharField()
+    tests = fields.ListField()
 
 
 @app.route("/", methods=["GET"])
@@ -38,12 +53,11 @@ def new_test():
 
 
 def add_database_entry(patient_name, id_no, blood_type):
-    new_patient = {"Name": patient_name,
-                   "ID": id_no,
-                   "Blood Type": blood_type,
-                   "Tests": []}
-    db.append(new_patient)
-    return new_patient
+    new_patient = Patients(name=patient_name,
+                          id=id_no,
+                          bloodtype=blood_type)
+    answer = new_patient.save()
+    return answer
 
 
 def add_test_entry(id, test_name, test_result):
@@ -72,4 +86,5 @@ def validate_server_input(in_data, expected_types):
 
 
 if __name__ == "__main__":
+    initialize_server()
     app.run()
