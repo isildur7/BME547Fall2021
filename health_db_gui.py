@@ -1,10 +1,12 @@
 import tkinter as tk
 from tkinter import Grid, ttk
+from tkinter.constants import CENTER
 
 
-def create_output(name, id, blood_letter, rh_factor):
+def create_output(name, id, blood_letter, rh_factor, donation):
     out_str = "Patient Name: {}\n".format(name)
     out_str = out_str+"Blood Type: {}{}\n".format(blood_letter, rh_factor)
+    out_str = out_str+"Donation Center: {}\n".format(donation)
     return out_str
 
 
@@ -16,8 +18,9 @@ def design_window():
         id = id_data.get()
         blood_letter = blood_letter_data.get()
         rh_factor= rh_data.get()
+        center = donation_center_data.get()
         # Call a testable external function to do the actual work
-        answer = create_output(name, id, blood_letter, rh_factor)
+        answer = create_output(name, id, blood_letter, rh_factor, center)
 
         # Update GUI
         print(answer)
@@ -59,6 +62,13 @@ def design_window():
                                   variable=rh_data, onvalue="+",
                                   offvalue="-")
     rh_checkbox.grid(column=1, row=4)
+
+    donation_center_data = tk.StringVar()
+    combo_box = ttk.Combobox(root, textvariable=donation_center_data)
+    combo_box.state(["readonly"])
+    combo_box.grid(column=3, row=1)
+    combo_box["values"] = ["Raleigh", "Durham", "Chapel Hill"]
+    
 
     ok_button = ttk.Button(root, text="OK", command=ok_button_cmd)
     ok_button.grid(column=0, row=7)
