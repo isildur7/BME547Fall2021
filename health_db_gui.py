@@ -1,6 +1,6 @@
 import tkinter as tk
-from tkinter import Grid, ttk
-from tkinter.constants import CENTER
+from tkinter import Grid, ttk, filedialog
+from PIL import Image, ImageTk
 
 
 def create_output(name, id, blood_letter, rh_factor, donation):
@@ -9,6 +9,14 @@ def create_output(name, id, blood_letter, rh_factor, donation):
     out_str = out_str+"Donation Center: {}\n".format(donation)
     return out_str
 
+def load_and_resize_image(filename):
+    pil_image = Image.open(filename)
+    image_size = pil_image.size
+    resize_factor = 3
+    pil_image = pil_image.resize((image_size[0]//resize_factor, 
+                                  image_size[1]//resize_factor))
+    tk_image = ImageTk.PhotoImage(pil_image)
+    return tk_image
 
 def design_window():
 
@@ -26,7 +34,15 @@ def design_window():
         print(answer)
 
     def cancel_button_cmd():
-        pass
+        root.destroy()
+    
+    def change_picture_cmd():
+        filename = filedialog.askopenfilename(initialdir='images')
+        if filename == "":
+            return
+        tk_image = load_and_resize_image(filename)
+        image_label.configure(image=tk_image)
+        image_label.image = tk_image
 
 
     root = tk.Tk()
@@ -71,10 +87,18 @@ def design_window():
     
 
     ok_button = ttk.Button(root, text="OK", command=ok_button_cmd)
-    ok_button.grid(column=0, row=7)
+    ok_button.grid(column=2, row=7)
 
     cancel_button = ttk.Button(root, text="Cancel", command=cancel_button_cmd)
-    cancel_button.grid(column=1, row=7)
+    cancel_button.grid(column=3, row=7)
+
+    tk_image = load_and_resize_image("images/bbwijKR.jpg")
+    image_label = ttk.Label(root, image=tk_image)
+    image_label.grid(column=0, row=7)
+
+    change_picture_btn = ttk.Button(root, text="Change Picture", 
+                                    command=change_picture_cmd)
+    change_picture_btn.grid(column=1, row=7)
 
     root.mainloop()
 
